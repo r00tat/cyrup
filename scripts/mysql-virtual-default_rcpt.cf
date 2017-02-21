@@ -1,0 +1,9 @@
+# the user name and password to log into the mysql server
+hosts = localhost
+user = postfix
+password = mA1L
+dbname = mail
+
+table = cyrup_default_rcpt
+select_field = aliased_to
+where_field = alias

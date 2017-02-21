@@ -1,0 +1,9 @@
+/*
+ * $RCSfile: TODO,v $ $Revision: 1.5 $
+ * $Author: slim_lv $ $Date: 2011/01/06 08:28:50 $
+ * This file is from CYRUP project
+ * by Yuri Pimenov (up@msh.lv) & Deniss Gaplevsky (slim@msh.lv)
+ */
+
+- alias to multi account support
+- modify verify_email if email is local to check local aliases

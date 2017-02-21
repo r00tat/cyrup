@@ -1,0 +1,58 @@
+/*
+ * $RCSfile: INSTALL.rpm,v $ $Revision: 1.1 $
+ * $Author: slim_lv $ $Date: 2008/05/08 13:31:21 $
+ * This file is part of CYRUP project
+ */
+
+
+This INSTALL.rpm describes additional steps for rpm based distros like 
+ RedHat. We have used Trusix. 
+
+Install TSL (www.trustix.org)
+----- PACKAGES :
+
+	amavisd-new
+	amavisd-new-config
+	apache
+	clamav
+	cvs
+	cyrus-imapd
+	cyrus-sasl
+	cyrus-sasl-plain
+	mysql
+	mysql-client
+	mysql-devel
+	mysql-libs
+	mysql-shared
+	openssl-devel
+	pam-devel
+	perl-mail-spamassassin
+	php
+	php-mysql
+	postfix
+	postfix-conf
+	postfix-mysql
+	postfix-pcre
+	spamassassin
+	squirrelmail
+	zlib-devel
+
+----- STARTUP:
+
+chkconfig --level 2345 mysql on
+chkconfig --level 345 httpd on
+chkconfig --level 2345 saslauthd on
+chkconfig --level 2345 cyrus on
+chkconfig --level 345 freshclam on
+chkconfig --level 345 clamd on
+chkconfig --level 345 amavisd on
+chkconfig --level 345 kavdaemon on
+chkconfig --level 2345 postfix on
+
+----- ADDITIONAL CONFIGS:
+
+/etc/sysconfig/saslauthd
+SASLAUTHD_OPTS=" -n0 -r "
+
+/etc/sysconfig/httpd
+HTTPDARGS=" -DSSL"
