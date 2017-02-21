@@ -17,10 +17,7 @@
     require_once( OWN_PATH.'/config.inc.php' );
     require_once( OWN_PATH.INCLUDE_DIR.'/functions.inc.php' );
 
-    if ( DB_TYPE == "pgsql")
-        require_once( INCLUDE_DIR."/pgsql.inc.php" );
-    else
-        require_once( INCLUDE_DIR."/mysql.inc.php" );
+    require_once( INCLUDE_DIR."/".DB_TYPE.".inc.php" );
 
     require_once( OWN_PATH.INCLUDE_DIR.'/imap.inc.php' );
 

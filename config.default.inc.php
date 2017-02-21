@@ -19,8 +19,9 @@
     define( 'AUTHSIGN', "<a href='http://cyrup.sf.net' target='_blank'>cyrup.sf.net</a>" );
 
 
-    define( 'DB_TYPE', 'mysql' );   // Valid types are:
+    define( 'DB_TYPE', 'mysqli' );   // Valid types are:
                                     //	"mysql" for MySQL (default)
+                                    //  "mysqli" for MySQLi  
                                     //	"pgsql" for PostgreSQL
     # SQL
     define( 'SQL_HOST', 'localhost' );
