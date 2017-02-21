@@ -270,19 +270,19 @@
             return 0;
         switch ( $level ) {
         case D_INCLUDE :
-            $head = "<font color='green'>INCLUDE</font>";
+            $head = "INCLUDE";
             break;
         case D_FUNCTION :
-            $head = "<font color='blue'>FUNCTION</font>";
+            $head = "FUNCTION";
             break;
         case D_SQL_ERROR :
-            $head = "<font color='orange'>SQL</font>";
+            $head = "SQL";
             break;
         case D_IMAP_ERROR :
-            $head = "<font color='orange'>IMAP</font>";
+            $head = "IMAP";
             break;
         }
-        print "$head: $message<br>\n";
+        @error_log ("$head: $message<br>\n");
     }
 
 
