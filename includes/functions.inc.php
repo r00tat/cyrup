@@ -80,7 +80,7 @@
 
         switch ( PASSWORD_CRYPT ) {
             case 0 : return "'".addslashes( $password )."'";
-            case 1 : return "'".crypt(addslashes( $password ))."'";
+            case 1 : return "'".crypt( $password, $password )."'";
             case 2 : return "PASSWORD('".addslashes( $password )."')";
             case 3 : return "'".md5(addslashes( $password ))."'";
             case 4 : return "'".sha1(addslashes( $password ))."'";
