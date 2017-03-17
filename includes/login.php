@@ -9,8 +9,8 @@
     if ( !defined("INCLUDE_DIR") ) exit("Not for direct run");
 
     if ( isset( $_POST['login'] ) ) {
-        $login    = addslashes( $_POST['login'] );
-        $password = addslashes( $_POST['password'] );
+        $login    = sql_escape( $_POST['login'] );
+        $password = $_POST['password'];
         sql_query( "SELECT rights FROM cyrup_admins WHERE username='".$login."' 
 				AND password=".get_sql_crypt($password) );
         if ( $row = sql_fetch_array() ) {

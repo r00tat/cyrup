@@ -50,7 +50,7 @@
         if ( trim($_SESSION['RIGHTS']) == "" ) 
             return ( $put_where ? ' WHERE ' : ' AND ' ).' null ';
         else 
-            return ( $put_where ? ' WHERE ' : ' AND ' ).$sql_field.' IN ('.addslashes($_SESSION['RIGHTS']).') ';
+            return ( $put_where ? ' WHERE ' : ' AND ' ).$sql_field.' IN ('.sql_escape($_SESSION['RIGHTS']).') ';
     }
     die('Incorrect function call: rights2sql()');
   }
@@ -79,11 +79,11 @@
     function get_sql_crypt( $password ) {
 
         switch ( PASSWORD_CRYPT ) {
-            case 0 : return "'".addslashes( $password )."'";
+            case 0 : return "'".sql_escape( $password )."'";
             case 1 : return "'".crypt( $password, $password )."'";
-            case 2 : return "PASSWORD('".addslashes( $password )."')";
-            case 3 : return "'".md5(addslashes( $password ))."'";
-            case 4 : return "'".sha1(addslashes( $password ))."'";
+            case 2 : return "PASSWORD('".sql_escape( $password )."')";
+            case 3 : return "'".md5( $password )."'";
+            case 4 : return "'".sha1( $password )."'";
         }
     }
 

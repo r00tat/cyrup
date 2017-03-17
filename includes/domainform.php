@@ -35,7 +35,7 @@
 	$default_rcpt = trim($_POST['default_rcpt']);
 	if ( ($default_rcpt != "") AND (!verify_email($default_rcpt)) )
 	    array_push( $errors, "Recipient of undelivered mail is incorrect");
-	$info = addslashes(htmlspecialchars( $_POST['info'],ENT_QUOTES ));
+	$info = sql_escape(htmlspecialchars( $_POST['info'],ENT_QUOTES ));
 
 	if ( ($quota > 2147483647) OR ($quota < 0) )
 	    array_push( $errors, "Quota exceed maximum of 2147483647Kb" );

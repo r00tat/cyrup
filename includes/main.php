@@ -11,7 +11,7 @@
     print_header( TITLE."Password Change" );
 
     if ( isset($_GET['chpass']) ) {
-        $account = addslashes( $_POST['account'] );
+        $account = sql_escape( $_POST['account'] );
         sql_query( "SELECT id FROM cyrup_accounts WHERE account='".$account."' 
 				 AND password=".get_sql_crypt($_POST['old_password']) );
 	$row = sql_fetch_array();

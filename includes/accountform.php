@@ -32,11 +32,11 @@
             }
         }
 
-        $first_name = addslashes(htmlspecialchars( $_POST['first_name'],ENT_QUOTES ));
-        $surname    = addslashes(htmlspecialchars( $_POST['surname'],ENT_QUOTES ));
-        $phone	    = addslashes(htmlspecialchars( $_POST['phone'],ENT_QUOTES ));
-        $other_email = addslashes(htmlspecialchars( $_POST['other_email'],ENT_QUOTES ));
-        $info	    = addslashes(htmlspecialchars( $_POST['info'],ENT_QUOTES ));
+        $first_name = sql_escape(htmlspecialchars( $_POST['first_name'],ENT_QUOTES ));
+        $surname    = sql_escape(htmlspecialchars( $_POST['surname'],ENT_QUOTES ));
+        $phone	    = sql_escape(htmlspecialchars( $_POST['phone'],ENT_QUOTES ));
+        $other_email = sql_escape(htmlspecialchars( $_POST['other_email'],ENT_QUOTES ));
+        $info	    = sql_escape(htmlspecialchars( $_POST['info'],ENT_QUOTES ));
         $enabled    = ( isset($_POST['enabled']) ? 1 : 0 );
         $quota	    = intval($_POST['quota_mb'] << 10);
         $quota_inc  = ( isset($account_id) ? $quota - $account_row['quota'] : $quota );

@@ -26,7 +26,7 @@
     function sess_read( $session_id ) {
         DEBUG( D_FUNCTION, "sess_read('$session_id')" );
 
-        $session_id = addslashes( $session_id );
+        $session_id = sql_escape( $session_id );
 
         $query = "SELECT value FROM cyrup_sessions WHERE sesskey='".$session_id."'";
         sql_query( $query );
@@ -40,8 +40,8 @@
     function sess_write( $session_id, $val ) {
         DEBUG( D_FUNCTION, "sess_write('$session_id', '$val')" );
 
-#        $session_id = addslashes( $session_id );
-        $val = addslashes( $val );
+#        $session_id = sql_escape( $session_id );
+        $val = sql_escape( $val );
 
         $expiry = time() + SESS_LIFE;
 	$query = "DELETE FROM cyrup_sessions WHERE sesskey='".$session_id."'";

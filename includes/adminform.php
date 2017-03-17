@@ -17,7 +17,7 @@
 
 	if ( (isset( $_POST['id'])) AND (0 != intval($_POST['id'])) ) {
 	    sql_query( "SELECT * FROM cyrup_admins WHERE id='".intval($_POST['id'])."'
-					    AND username='".addslashes($_POST['username'])."'");
+					    AND username='".sql_escape($_POST['username'])."'");
 	    if ( 1 == sql_num_rows() ) {
 		$admin_id = intval($_POST['id']);
 		$admin_row = sql_fetch_array();
@@ -27,7 +27,7 @@
 	};
 
 	$username    = strtolower(trim(preg_replace("/[^\w-]/","",$_POST['username'])));
-	$info       = addslashes(htmlspecialchars( $_POST['info'],ENT_QUOTES ));
+	$info       = sql_escape(htmlspecialchars( $_POST['info'],ENT_QUOTES ));
 
 	// Check admins name
 	if  ( !preg_match("/^([\w-])+$/",trim($_POST['username'])) )

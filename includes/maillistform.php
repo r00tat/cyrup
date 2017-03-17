@@ -62,7 +62,7 @@
 	if ( sizeof($errors) == 0 ) {
 
 	    $query = "cyrup_maillists SET domain_id='".$domain_id."', enabled='".$enabled."',
-                                                alias='".$alias."', aliased_to='".addslashes($members)."'";
+                                                alias='".$alias."', aliased_to='".sql_escape($members)."'";
 
 	    if ( isset($maillist_id) )
 		$query = "UPDATE ".$query." WHERE id='".$maillist_id."'";
@@ -71,7 +71,7 @@
 				(domain_id, enabled, alias, aliased_to)
 				VALUES
 				('".$domain_id."','".$enabled."','".$alias."',
-				'".addslashes($members)."')";
+				'".sql_escape($members)."')";
 
             sql_query( $query );
 	    header( "Location: ".BASE_URL."/?admin&m=maillists" );
