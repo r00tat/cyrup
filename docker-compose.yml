@@ -1,0 +1,23 @@
+version: '2'
+services:
+  php:
+    image: paulwoelfel/apache-php:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DEBUG=1
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: mail
+      MYSQL_USER: mail
+      MYSQL_PASSWORD: secret
+# volumes:
+#   logvolume01: {}
