@@ -16,7 +16,7 @@
         print "<font color=red><b>FATAL: </b></font>";
         DEBUG( D_SQL_ERROR, $message );
         $err_message = $GLOBALS['mysqlidb'] === null || $GLOBALS['mysqlidb'] === FALSE ? mysqli_connect_error() : mysqli_error($GLOBALS['mysqlidb']);
-        DEBUG( D_SQL_ERROR, $err_message);
+        DEBUG( D_SQL_ERROR, "SQLERR: ".$err_message);
         print $err_message;
         exit();
     }
@@ -181,7 +181,10 @@
 
     function sql_escape($str){
         DEBUG( D_FUNCTION, "mysqli_escape()" );
-        return @mysqli_real_escape_string($GLOBALS['mysqlidb'], $str) or sql_die("failed to escape string");
+        if(strlen(strval($str)) == 0 ){
+            return "";
+        }
+        return @mysqli_real_escape_string($GLOBALS['mysqlidb'], strval($str)) or sql_die("failed to escape string: ".json_encode($str));
     }
 
     function sql_check_tables(){
