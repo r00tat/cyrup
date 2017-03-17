@@ -179,6 +179,11 @@
         mysql_close();
     }
 
+    function sql_escape($str){
+        DEBUG( D_FUNCTION, "mysql_escape()" );
+        return @mysql_real_escape_string($str) or sql_die("failed to escape string");
+    }
+
     sql_connect();
 
 ?>

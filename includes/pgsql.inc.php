@@ -163,6 +163,11 @@
         pg_close();
     }
 
+    function sql_escape($str){
+        DEBUG( D_FUNCTION, "pgsql_escape()" );
+        return @pg_escape_string($str) or sql_die("failed to escape string");
+    }
+
     sql_connect();
 
 ?>
