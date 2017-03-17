@@ -114,4 +114,4 @@ CREATE TABLE cyrup_sessions (
 
 -- GRANT DELETE,INSERT,LOCK TABLES,SELECT,UPDATE ON mail.* TO postfix@localhost IDENTIFIED BY 'mA1L';
 -- INSERT INTO cyrup_admins VALUES (DEFAULT,'admin',SHA1('admin'),'','Mega admin');
--- INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',SHA1('itest'),0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');
+-- INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',SHA1('cyrus'),0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');

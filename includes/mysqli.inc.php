@@ -193,8 +193,6 @@
             $tables[] = $row[0];
         }
 
-        DEBUG(D_FUNCTION, "tables: ".var_dump($tables));
-
         mysqli_free_result($result);
 
         if(!in_array("cyrup_accounts", $tables)){
@@ -211,7 +209,7 @@
                         DEBUG(D_FUNCTION, "table created.");
                     }elseif ($result) {
                         while ($row = mysqli_fetch_row($result)) {
-                             DEBUG(D_FUNCTION, "row: ". var_dump($row));
+                             DEBUG(D_FUNCTION, "row: ". json_encode($row));
                         }
                         mysqli_free_result($result);
                     }
@@ -219,6 +217,32 @@
 
             }else {
                 sql_die("create tables failed!");
+            }
+        }
+
+        // -- INSERT INTO cyrup_admins VALUES (DEFAULT,'admin',SHA1('admin'),'','Mega admin');
+        // -- INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',SHA1('cyrus'),0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');
+        $result = sql_query("SELECT COUNT(id) FROM cyrup_admins");
+        $row = mysqli_fetch_row($result);
+        mysqli_free_result($result);
+        if ($row[0] < 1){
+            // no admins exist
+            if (sql_query("INSERT INTO cyrup_admins VALUES (DEFAULT,'admin',SHA1('admin'),'','Super admin');")){
+                DEBUG(D_FUNCTION, "created admin user");
+            }else {
+                sql_error("failed to create admin user");
+            }
+        }
+
+        $result = sql_query("SELECT COUNT(id) FROM cyrup_accounts WHERE account = 'cyrus'");
+        $row = mysqli_fetch_row($result);
+        mysqli_free_result($result);
+        if ($row[0] < 1){
+            // cyrus does not exist
+            if (sql_query("INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',SHA1('cyrus'),0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');")){
+                DEBUG(D_FUNCTION, "created cyrus user");
+            }else {
+                sql_error("failed to create cyrus user");
             }
         }
 
