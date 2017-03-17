@@ -282,7 +282,7 @@
             $head = "IMAP";
             break;
         }
-        @error_log ("$head: $message<br>\n");
+        @error_log ("$head: $message");
     }
 
 
