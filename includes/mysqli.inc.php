@@ -15,7 +15,9 @@
     function sql_die( $message ) {
         print "<font color=red><b>FATAL: </b></font>";
         DEBUG( D_SQL_ERROR, $message );
-        print mysqli_error();
+        $err_message = $GLOBALS['mysqlidb'] === null || $GLOBALS['mysqlidb'] === FALSE ? mysqli_connect_error() : mysqli_error($GLOBALS['mysqlidb']);
+        DEBUG( D_SQL_ERROR, $err_message);
+        print $err_message;
         exit();
     }
 
@@ -182,6 +184,47 @@
         return @mysqli_real_escape_string($GLOBALS['mysqlidb'], $str) or sql_die("failed to escape string");
     }
 
+    function sql_check_tables(){
+        // fetch tables
+        $result = sql_query("show tables;");
+
+        $tables = [];
+        while ($row = mysqli_fetch_row($result)){
+            $tables[] = $row[0];
+        }
+
+        DEBUG(D_FUNCTION, "tables: ".var_dump($tables));
+
+        mysqli_free_result($result);
+
+        if(!in_array("cyrup_accounts", $tables)){
+            DEBUG(D_FUNCTION, "creating tables!");
+            $sql = file_get_contents('scripts/cyrup.mysql.sql');
+            $sql = preg_replace('#/\*.*?\*/#s', '', $sql);
+            $sql = preg_replace('/^--.*[\r\n]*/m', '', $sql);
+            // $sql = preg_replace('/\n(?!;)/m', ' ', $sql);
+            DEBUG(D_FUNCTION, "executing query: ".$sql);
+            if (mysqli_multi_query($GLOBALS['mysqlidb'], $sql)){
+                do {
+                    $result = mysqli_store_result($GLOBALS['mysqlidb']);
+                    if ($result === TRUE){
+                        DEBUG(D_FUNCTION, "table created.");
+                    }elseif ($result) {
+                        while ($row = mysqli_fetch_row($result)) {
+                             DEBUG(D_FUNCTION, "row: ". var_dump($row));
+                        }
+                        mysqli_free_result($result);
+                    }
+                } while (mysqli_next_result($GLOBALS['mysqlidb']));
+
+            }else {
+                sql_die("create tables failed!");
+            }
+        }
+
+    }
+
     sql_connect();
+    sql_check_tables();
 
 ?>

@@ -15,10 +15,6 @@
 -- Table structure for table 'cyrup_accounts'
 --
 
-CREATE DATABASE mail;
-
-USE mail;
-
 CREATE TABLE cyrup_accounts (
   id int(11) NOT NULL auto_increment,
   account varchar(100) NOT NULL default '',
@@ -34,7 +30,7 @@ CREATE TABLE cyrup_accounts (
   PRIMARY KEY  (id),
   UNIQUE KEY account (account),
   KEY account_2 (account)
-) TYPE=MyISAM;
+);
 
 --
 -- Table structure for table 'cyrup_admins'
@@ -47,7 +43,7 @@ CREATE TABLE cyrup_admins (
   rights varchar(100) default NULL,
   info varchar(250) default NULL,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 --
 -- Table structure for table 'cyrup_aliases'
@@ -62,7 +58,7 @@ CREATE TABLE cyrup_aliases (
   enabled tinyint(4) default NULL,
   PRIMARY KEY  (id),
   KEY alias_2 (alias)
-) TYPE=MyISAM;
+);
 
 --
 -- Table structure for table 'cyrup_default_rcpt'
@@ -73,7 +69,7 @@ CREATE TABLE cyrup_default_rcpt (
   alias varchar(100) default NULL,
   aliased_to varchar(250) default NULL,
   PRIMARY KEY  (domain_id)
-) TYPE=MyISAM;
+);
 
 --
 -- Table structure for table 'cyrup_domains'
@@ -89,7 +85,7 @@ CREATE TABLE cyrup_domains (
   account_suffix varchar(100) NOT NULL default '',
   enabled tinyint(4) default NULL,
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+);
 
 --
 -- Table structure for table 'cyrup_maillists'
@@ -103,7 +99,7 @@ CREATE TABLE cyrup_maillists (
   enabled tinyint(3) unsigned default NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY alias (alias)
-) TYPE=MyISAM;
+);
 
 --
 -- Table structure for table 'cyrup_sessions'
@@ -114,8 +110,8 @@ CREATE TABLE cyrup_sessions (
   expiry int(11) unsigned NOT NULL default '0',
   value text NOT NULL,
   PRIMARY KEY  (sesskey)
-) TYPE=MyISAM;
+);
 
-GRANT DELETE,INSERT,LOCK TABLES,SELECT,UPDATE ON mail.* TO postfix@localhost IDENTIFIED BY 'mA1L';
-INSERT INTO cyrup_admins VALUES (DEFAULT,'admin',SHA1(''),'','Mega admin');
-INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',SHA1('itest'),0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');
+-- GRANT DELETE,INSERT,LOCK TABLES,SELECT,UPDATE ON mail.* TO postfix@localhost IDENTIFIED BY 'mA1L';
+-- INSERT INTO cyrup_admins VALUES (DEFAULT,'admin',SHA1('admin'),'','Mega admin');
+-- INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',SHA1('itest'),0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');
