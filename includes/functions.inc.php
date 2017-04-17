@@ -266,6 +266,7 @@
   }
 
     function DEBUG( $level, $message = "" ) {
+        $error = false;
         if ( ! ( $level & DEBUG_LEVEL ) )
             return 0;
         switch ( $level ) {
@@ -277,12 +278,25 @@
             break;
         case D_SQL_ERROR :
             $head = "SQL";
+            $error = true;
             break;
         case D_IMAP_ERROR :
             $head = "IMAP";
+            $error = true;
             break;
         }
         @error_log ("$head: $message");
+        if ($error){
+            $traceback = debug_backtrace();
+            $tb = "";
+            for($i=0;$i<count($traceback);$i++){
+                @error_log($traceback[$i]['file'].":".$traceback[$i]['line']." ".$traceback[$i]['function']." ".implode(", ",$traceback[$i]['args']));
+                // $tb .= $traceback[$i]."\n";
+            }
+            // $tb = json_encode($traceback);
+
+            // @error_log("Traceback: ".$tb);
+        }
     }
 
 
