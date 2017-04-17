@@ -11,8 +11,7 @@
     if ( isset( $_POST['login'] ) ) {
         $login    = sql_escape( $_POST['login'] );
         $password = $_POST['password'];
-        sql_query( "SELECT rights FROM cyrup_admins WHERE username='".$login."' 
-				AND password=".get_sql_crypt($password) );
+        sql_query( "SELECT rights FROM cyrup_admins WHERE username='".$login."' AND password=".get_sql_crypt($password) );
         if ( $row = sql_fetch_array() ) {
 	    if ( ( $login != ADMIN_USER ) AND ( trim($row['rights']) == "" ) ) {
 		$errors = array();

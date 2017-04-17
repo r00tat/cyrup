@@ -16,8 +16,8 @@
 	$errors = array();
 
 	if ( (isset( $_POST['id'])) AND (0 != intval($_POST['id'])) ) {
-	    sql_query( "SELECT * FROM cyrup_admins WHERE id='".intval($_POST['id'])."'
-					    AND username='".sql_escape($_POST['username'])."'");
+	    sql_query( "SELECT * FROM cyrup_admins WHERE id='".intval($_POST['id']).
+	    	"' AND username='".sql_escape($_POST['username'])."'");
 	    if ( 1 == sql_num_rows() ) {
 		$admin_id = intval($_POST['id']);
 		$admin_row = sql_fetch_array();

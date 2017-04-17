@@ -160,28 +160,29 @@
         print "<input type=hidden name=id value='".intval($_GET['id'])."'>\n";
         $row = get_domain_info( $_GET['id'] );
     } else {
-	if ( isset($account_suffix) )
-	    $row['account_suffix'] = $account_suffix;
-	else
-	    $row['account_suffix'] = "";
-	( isset($domain) ? $row['domain'] = $domain : $row['domain'] = "" );
-	( isset($info) ? $row['info'] = $info : $row['info'] = "" );
-	if ( isset($accounts_max) )
-            $row['accounts_max'] = $accounts_max;
-        else
-            $row['accounts_max'] = 0;
-        if ( isset($aliases_max) )
-            $row['aliases_max'] = $aliases_max;
-        else
-            $row['aliases_max'] = 0;
-        if ( isset($quota) )
-            $row['quota'] = $quota;
-        else
-            $row['quota'] = 0;
-	if ( isset($default_rcpt) )
+		if ( isset($account_suffix) )
+		    $row['account_suffix'] = $account_suffix;
+		else
+		    $row['account_suffix'] = "";
+		( isset($domain) ? $row['domain'] = $domain : $row['domain'] = "" );
+		( isset($info) ? $row['info'] = $info : $row['info'] = "" );
+		if ( isset($accounts_max) )
+	            $row['accounts_max'] = $accounts_max;
+	        else
+	            $row['accounts_max'] = 0;
+	        if ( isset($aliases_max) )
+	            $row['aliases_max'] = $aliases_max;
+	        else
+	            $row['aliases_max'] = 0;
+	        if ( isset($quota) )
+	            $row['quota'] = $quota;
+	        else
+	            $row['quota'] = 0;
+		if ( isset($default_rcpt) )
             $row['default_rcpt'] = $default_rcpt;
         else
             $row['default_rcpt'] = "";
+        $row['enabled'] = true;
     };
 
     print "<table align=center border=0 cellpadding=0 cellspacing=0>\n";

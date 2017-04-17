@@ -173,9 +173,8 @@
             ." FROM cyrup_domains cd LEFT JOIN cyrup_default_rcpt cdr"
             ." ON cd.id=cdr.domain_id WHERE cd.id='".$domain_id."'" );
         $row = sql_fetch_array();
-        sql_query( "SELECT alias FROM cyrup_aliases WHERE domain_id='".$domain_id."'
-                        UNION
-                    SELECT alias FROM cyrup_maillists WHERE domain_id='".$domain_id."'" );
+        sql_query( "SELECT alias FROM cyrup_aliases WHERE domain_id='".$domain_id.
+            "' UNION SELECT alias FROM cyrup_maillists WHERE domain_id='".$domain_id."'" );
         $row['aliases_cur'] = sql_num_rows();
 
         sql_query( "SELECT count(*),sum(quota) FROM cyrup_accounts WHERE domain_id='".$domain_id."'" );
@@ -224,9 +223,8 @@
 
     $row = sql_fetch_array();
     $alias = $row['alias'];
-    sql_query( "SELECT * FROM cyrup_maillists
-                          WHERE domain_id='".$domain_id."'
-                                AND aliased_to LIKE '%".$alias."%' ORDER BY alias" );
+    sql_query( "SELECT * FROM cyrup_maillists WHERE domain_id='".$domain_id.
+        "' AND aliased_to LIKE '%".$alias."%' ORDER BY alias" );
     while ( $row = sql_fetch_array() ) {
       $aliased_to = explode( ",", $row['aliased_to'] );
       if ( in_array($alias,$aliased_to) ) 
@@ -241,24 +239,23 @@
     $alias_id = intval( $alias_id );
     if ( !$alias_id ) return false;
 
-    sql_query( "SELECT alias FROM cyrup_aliases WHERE domain_id='".get_domain_id()."' 
-                                                      AND id='".$alias_id ."'" );
+    sql_query( "SELECT alias FROM cyrup_aliases WHERE domain_id='".get_domain_id().
+        "' AND id='".$alias_id ."'" );
     if ( 1 != sql_num_rows() ) return false;
 
     $alias = sql_fetch_variable();
 
-    sql_query( "DELETE FROM cyrup_maillists WHERE domain_id='".get_domain_id()."'
-                                                        AND aliased_to='".$alias."'" );
+    sql_query( "DELETE FROM cyrup_maillists WHERE domain_id='".get_domain_id().
+        "' AND aliased_to='".$alias."'" );
 
-    $result = sql_query( "SELECT * FROM cyrup_maillists WHERE domain_id='".get_domain_id()."'
-                                                        AND aliased_to LIKE '%".$alias."%'" );
+    $result = sql_query( "SELECT * FROM cyrup_maillists WHERE domain_id='".get_domain_id().
+        "'  AND aliased_to LIKE '%".$alias."%'" );
     while ( $row = sql_fetch_array($result) ) {
       $aliased_to = explode( ",", $row['aliased_to'] );
       if ( in_array($alias,$aliased_to) ) {
         array_splice( $aliased_to, array_search($alias,$aliased_to), 1 );
-        sql_query( "UPDATE cyrup_maillists SET aliased_to='".implode(",",$aliased_to)."' 
-                            WHERE domain_id='".get_domain_id()."'
-                                  AND id='".$row['id']."'" );
+        sql_query( "UPDATE cyrup_maillists SET aliased_to='".implode(",",$aliased_to).
+            "' WHERE domain_id='".get_domain_id()."' AND id='".$row['id']."'" );
       }
     }
     return true;
