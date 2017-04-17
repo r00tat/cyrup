@@ -248,7 +248,7 @@
         mysqli_free_result($result);
         if ($row[0] < 1){
             // cyrus does not exist
-            if (sql_query("INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',".get_sql_crypt('cyrus').",0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');")){
+            if (sql_query("INSERT INTO cyrup_accounts VALUES (DEFAULT,'cyrus',".get_sql_crypt(CYRUS_PASS).",0,0,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'cyrus admin','1');")){
                 DEBUG(D_FUNCTION, "created cyrus user");
             }else {
                 sql_error("failed to create cyrus user");
