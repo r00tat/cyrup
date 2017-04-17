@@ -180,11 +180,17 @@
     }
 
     function sql_escape($str){
-        DEBUG( D_FUNCTION, "mysqli_escape()" );
+        DEBUG( D_FUNCTION, "mysqli_escape($str)" );
+        if (empty($GLOBALS['mysqlidb'])){
+            sql_connect();
+        }
+
         if(strlen(strval($str)) == 0 ){
             return "";
         }
-        return @mysqli_real_escape_string($GLOBALS['mysqlidb'], strval($str)) or sql_die("failed to escape string: ".json_encode($str));
+        $escape_string = @mysqli_real_escape_string($GLOBALS['mysqlidb'], strval($str)) or sql_die("failed to escape string: ".$str." ".json_encode(error_get_last()));
+        // DEBUG( D_FUNCTION, "mysqli_escape($str) = $escape_string" );
+        return $escape_string;
     }
 
     function sql_check_tables(){
