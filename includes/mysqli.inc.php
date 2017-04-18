@@ -15,7 +15,8 @@
     function sql_die( $message ) {
         print "<font color=red><b>FATAL: </b></font>";
         DEBUG( D_SQL_ERROR, $message );
-        $err_message = $GLOBALS['mysqlidb'] === null || $GLOBALS['mysqlidb'] === FALSE ? mysqli_connect_error() : mysqli_error($GLOBALS['mysqlidb']);
+
+        $err_message = empty($GLOBALS['mysqlidb']) ? mysqli_connect_error() : mysqli_error($GLOBALS['mysqlidb']);
         DEBUG( D_SQL_ERROR, "SQLERR: ".$err_message);
         print $err_message;
         exit();
