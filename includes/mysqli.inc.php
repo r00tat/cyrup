@@ -52,6 +52,10 @@
 
     function sql_query( $query ) {
 
+        if(empty($GLOBALS['mysqlidb'])){
+            sql_connect();
+        }
+
         DEBUG( D_FUNCTION, "mysqli_query('$query')" );
 
         ($GLOBALS['sql_last_result'] = @mysqli_query($GLOBALS['mysqlidb'], $query ))
